@@ -116,12 +116,9 @@ function pagarConBitcoin() {
 
 console.log("----------------------------------");
 
-if (total > 0) {
-    if (clienteEmail !== "") {
-        if (clienteNombre !== "") {
-            console.log("Pedido procesado correctamente.");
-        }
-    }
+if (total > 0 && clienteEmail && clienteNombre) {
+    console.log("Pedido procesado correctamente.");
 }
+
 
 rl.close();
