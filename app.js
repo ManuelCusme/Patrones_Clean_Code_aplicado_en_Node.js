@@ -5,16 +5,6 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-// Configuraciones que posiblemente algún día se utilizarán
-const CONFIGURACION_SISTEMA = {
-    modoOscuro: false,
-    inteligenciaArtificial: false,
-    blockchain: false,
-    soporteBitcoin: false,
-    enviarWhatsApp: false,
-    exportarExcel: false
-};
-
 function calcularDescuento(subtotal) {
     if (subtotal >= 1000) {
         return subtotal * 0.15;
@@ -89,20 +79,6 @@ console.log(
     "Enviando correo a " + clienteEmail +
     " indicando que su pedido tiene un total de $" + total.toFixed(2)
 );
-
-function convertirPedidoABlockchain() {
-    console.log("Convirtiendo pedido a blockchain...");
-}
-
-function generarPrediccionConIA() {
-    console.log("Analizando comportamiento del cliente con IA...");
-}
-
-function pagarConBitcoin() {
-    console.log("Conectando con billetera Bitcoin...");
-}
-
-console.log("----------------------------------");
 
 if (total > 0 && clienteEmail && clienteNombre) {
     console.log("Pedido procesado correctamente.");
