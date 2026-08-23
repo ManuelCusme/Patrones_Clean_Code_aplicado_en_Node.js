@@ -15,6 +15,18 @@ const CONFIGURACION_SISTEMA = {
     exportarExcel: false
 };
 
+function calcularDescuento(subtotal) {
+    if (subtotal >= 1000) {
+        return subtotal * 0.15;
+    } else if (subtotal >= 500) {
+        return subtotal * 0.10;
+    } else if (subtotal >= 100) {
+        return subtotal * 0.05;
+    } else {
+        return 0;
+    }
+}
+
 let clienteNombre = "Juan Pérez";
 let clienteEmail = "juan@gmail.com";
 let clienteCiudad = "Ambato";
@@ -48,31 +60,7 @@ console.log(producto2 + " x " + cantidad2 + " = $" + subtotal2);
 console.log(producto3 + " x " + cantidad3 + " = $" + subtotal3);
 console.log("----------------------------------");
 
-let descuento = 0;
-if (subtotal >= 1000) {
-    descuento = subtotal * 0.15;
-} else {
-    if (subtotal >= 500) {
-        descuento = subtotal * 0.10;
-    } else {
-        if (subtotal >= 100) {
-            descuento = subtotal * 0.05;
-        } else {
-            descuento = 0;
-        }
-    }
-}
-
-let descuentoParaMostrar = 0;
-if (subtotal >= 1000) {
-    descuentoParaMostrar = subtotal * 0.15;
-} else if (subtotal >= 500) {
-    descuentoParaMostrar = subtotal * 0.10;
-} else if (subtotal >= 100) {
-    descuentoParaMostrar = subtotal * 0.05;
-} else {
-    descuentoParaMostrar = 0;
-}
+const descuento = calcularDescuento(subtotal);
 
 let subtotalConDescuento = subtotal - descuento;
 let iva = subtotalConDescuento * 0.15;
@@ -91,7 +79,7 @@ if (clienteCiudad === "Ambato") {
 let total = subtotalConDescuento + iva + envio;
 
 console.log("Subtotal: $" + subtotal.toFixed(2));
-console.log("Descuento: $" + descuentoParaMostrar.toFixed(2));
+console.log("Descuento: $" + descuento.toFixed(2));
 console.log("IVA: $" + iva.toFixed(2));
 console.log("Envío: $" + envio.toFixed(2));
 console.log("TOTAL: $" + total.toFixed(2));
