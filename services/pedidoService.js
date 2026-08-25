@@ -5,7 +5,13 @@ const { calcularEnvio } = require('./envioService');
 const IVA = 0.15; // Impuesto al Valor Agregado
 
 function calcularSubtotal(productos) {
-    return productos.reduce((acc, p) => acc + p.precio * p.cantidad, 0);
+    let subtotal = 0;
+
+    for (const producto of productos) {
+        subtotal += producto.precio * producto.cantidad;
+    }
+
+    return subtotal;
 }
 
 function calcularIVA(subtotalConDescuento) {

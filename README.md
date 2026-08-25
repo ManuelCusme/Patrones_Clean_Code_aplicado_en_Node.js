@@ -31,16 +31,18 @@ El programa original funcionaba correctamente, pero presentaba graves problemas 
 
 | N.º | Problema encontrado | Principio afectado | Solución propuesta |
 |:---:|----------------------|----------------------|----------------------|
-| 1 | Variables con nombres genéricos (`x`, `subtotal1`, `subtotal2`) | Claridad / Legibilidad | Usar nombres descriptivos: `subtotal`, `totalProducto`, etc. |
-| 2 | Código duplicado (cálculo de descuento repetido dos veces) | DRY | Crear función `calcularDescuento(subtotal)` y reutilizarla. |
-| 3 | Anidamiento excesivo (`if (total > 0) { if (email) { if (nombre) {...} } }`) | KISS | Simplificar con una sola condición usando operadores lógicos (`&&`). |
-| 4 | Números mágicos (`0.15`, `1000`, `500`, `100`, `5`, `10`, `12`) | Mantenibilidad | Reemplazar por constantes con nombres claros (`IVA`, `UMBRAL_DESCUENTO_ALTO`, `tarifas`). |
-| 5 | Funciones no utilizadas (`convertirPedidoABlockchain`, `generarPrediccionConIA`, `pagarConBitcoin`) | YAGNI | Eliminar completamente. |
-| 6 | Objeto de configuración innecesario (`CONFIGURACION_SISTEMA` con flags falsos) | YAGNI | Eliminar, no se usaba. |
-| 7 | Productos definidos como variables individuales (`producto1`, `producto2`, `producto3`) | Escalabilidad | Convertir en un arreglo de objetos. |
-| 8 | Lógica de negocio mezclada con presentación (cálculos e impresión juntos) | Separación de responsabilidades | Extraer funciones puras y módulos independientes. |
-| 9 | Cálculo de envío con múltiples `if-else` | Legibilidad | Reemplazar por un objeto `tarifas` que mapea ciudad → costo. |
-| 10 | Falta de modularidad (todo en un solo archivo) | Mantenibilidad | Dividir en carpetas: `models/`, `services/`, `utils/`. |
+| 1 | Lógica anidada y difícil de leer (descuento con if anidados) | KISS | Usar `else if` para simplificar o una función con if encadenados planos. |
+| 2 | Cálculo de descuento duplicado (aparece dos veces casi igual) | DRY | Extraer a una función `calcularDescuento(subtotal)` y reutilizar. |
+| 3 | Variables con nombres genéricos (producto1, precio1, cantidad1) | Nombres claros | Usar un arreglo de objetos `productos` con propiedades. |
+| 4 | Números mágicos (0.15, 0.10, 0.05, 5, 10, 12, 15) | Evitar números de la nada | Definir constantes como `IVA = 0.15`, `DESCUENTO_POR_RANGO` y `COSTO_ENVIO_POR_CIUDAD`. |
+| 5 | Funciones no utilizadas (convertirPedidoABlockchain, generarPrediccionConIA, pagarConBitcoin) | YAGNI | Eliminar porque no se usan ni aportan valor al sistema actual. |
+| 6 | Objeto de configuración innecesario (CONFIGURACION_SISTEMA con flags falsos) | YAGNI | Eliminar porque no se usa. |
+| 7 | Código de validación anidado (`if (total > 0) { if (clienteEmail !== "") { if (clienteNombre !== "") { ... } } }`) | KISS | Simplificar a una sola condición compuesta: `if (total > 0 && clienteEmail && clienteNombre)`. |
+| 8 | Mezcla de responsabilidades (cálculo, presentación, validación y notificación todo en app.js) | Separación de responsabilidades | Dividir en módulos: `models/`, `services/`, `utils/`. |
+| 9 | Hardcodeo de datos de cliente y productos (no permite cambios sin modificar el código) | Mantenibilidad | Mover a un arreglo de productos y objeto cliente, y usar funciones que procesen cualquier cantidad. |
+| 10 | Código rígido para 3 productos (si se agrega uno más, hay que crear nuevas variables) | Extensibilidad | Usar un arreglo dinámico para soportar cualquier cantidad sin modificar la lógica. |
+| 11 | Uso de readline sin necesidad (no se usa entrada del usuario) | YAGNI/KISS | Eliminar readline porque no se pide entrada en el flujo actual. |
+| 12 | Salida con console.log mezclada con lógica de negocio | Separación de responsabilidades | Separar la generación de la factura (estructura de datos) de su presentación (impresión). |
 
 ---
 
@@ -220,4 +222,4 @@ Patrones de Software
 
 ---
 
-*Hecho con 💻 y buenas prácticas de Clean Code*
+*Hecho con razón y buenas prácticas de Clean Code*
